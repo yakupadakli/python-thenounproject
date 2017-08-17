@@ -24,7 +24,7 @@ class Client(object):
 
         try:
             response = requests.request(
-                method, url, params=params, data=data, headers=headers, auth=self.auth **kwargs
+                method, url, params=params, data=data, headers=headers, auth=self.auth, **kwargs
             )
         except Exception as e:
             raise ConnectionError(e)

@@ -6,7 +6,7 @@ class ResultSet(list):
 
 
 class Model(object):
-    not_found_error_class = expections.NotFound
+    _not_found_error_class = expections.NotFound
 
     def __init__(self, **kwargs):
         self._repr_values = {"id": "ID"}
@@ -15,7 +15,7 @@ class Model(object):
     def parse(cls, data, sub_item=False):
         data = data or {}
         if not data and not sub_item:
-            raise cls.not_found_error_class()
+            raise cls._not_found_error_class()
         instance = cls() if data else None
         for key, value in data.items():
             if type(value) == str:
@@ -36,3 +36,45 @@ class Model(object):
         items = filter(lambda x: x[0] in self._repr_values.keys(), vars(self).items())
         state = ['%s: %s' % (self._repr_values[k], repr(v)) for (k, v) in items]
         return '<%s: %s >' % (self.__class__.__name__, ', '.join(state))
+
+
+class Collection(Model):
+
+    def __init__(self, **kwargs):
+        super(Collection, self).__init__(**kwargs)
+        self._repr_values = {"name": "Name", "slug": "Slug"}
+
+    @classmethod
+    def parse(cls, data, sub_item=False):
+        collection = super(Collection, cls).parse(data, sub_item=sub_item)
+        if hasattr(collection, "author"):
+            collection.author = Author.parse(collection.author, sub_item=True)
+        return collection
+
+
+class Author(Model):
+
+    def __init__(self, **kwargs):
+        super(Author, self).__init__(**kwargs)
+        self._repr_values = {"name": "Name"}
+
+
+class Icon(Model):
+
+    def __init__(self, **kwargs):
+        super(Icon, self).__init__(**kwargs)
+        self._repr_values = {"id": "Id", "attribution": "Attribution"}
+
+    @classmethod
+    def parse(cls, data, sub_item=False):
+        icon = super(Icon, cls).parse(data, sub_item=sub_item)
+        if hasattr(icon, "uploader"):
+            icon.uploader = Author.parse(icon.uploader, sub_item=True)
+        return icon
+
+
+class Uploader(Model):
+
+    def __init__(self, **kwargs):
+        super(Uploader, self).__init__(**kwargs)
+        self._repr_values = {"name": "Name", "username": "Username"}

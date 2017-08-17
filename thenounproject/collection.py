@@ -1,58 +1,38 @@
 # coding=utf-8
-
-from tvmaze.client import Client
-from tvmaze.expections import ShowNotFound
-from tvmaze.models import Show as ShowModel
-from tvmaze.models import Episode as EpisodeModel
-from tvmaze.models import Season as SeasonModel
-from tvmaze.models import Cast as CastModel
-from tvmaze.models import Crew as CrewModel
-from tvmaze.models import Aka as AkaModel
+from thenounproject.client import Client
+from thenounproject.models import Collection as CollectionModel
+from thenounproject.models import Icon as IconModel
 
 
 class Collection(Client):
 
     def __init__(self, **kwargs):
-        super(Show, self).__init__(**kwargs)
-        self.url = "shows"
+        super(Collection, self).__init__(**kwargs)
+        self.url = "collection"
+        self.list_url = "collections"
 
-    def list(self, page=0):
-        result = self._get("/%s" % self.url, params={"page": page})
-        return ShowModel.parse_list(result)
+    def list(self, limit=None, offset=None, page=None):
+        params = {"limit": limit, "offset": offset, "page": page}
+        result = self._get("/%s" % self.list_url, params=params)
+        return CollectionModel.parse_list(result.get("collections"))
 
-    def get(self, show_id):
-        result = self._get("/%s/%s" % (self.url, show_id))
-        return ShowModel.parse(result)
+    def _get_collection(self, collection_id_or_slug):
+        result = self._get("/%s/%s" % (self.url, collection_id_or_slug))
+        return CollectionModel.parse(result.get("collection"))
 
-    def get_by_name(self, show_name):
-        return self.api.search.single_show(show_name)
+    def get(self, collection_id):
+        return self._get_collection(collection_id)
 
-    def episodes(self, show_id):
-        result = self._get("/%s/%s/episodes" % (self.url, show_id))
-        return EpisodeModel.parse_list(result)
+    def get_by_slug(self, slug):
+        return self._get_collection(slug)
 
-    def episode_by_number(self, show_id, season, number):
-        result = self._get(
-            "/%s/%s/episodebynumber" % (self.url, show_id), params={"season": season, "number": number}
-        )
-        return EpisodeModel.parse(result)
+    def _icons(self, collection_id_or_slug, limit=None, offset=None, page=None):
+        params = {"limit": limit, "offset": offset, "page": page}
+        result = self._get("/%s/%s/icons" % (self.url, collection_id_or_slug), params=params)
+        return IconModel.parse_list(result.get("icons"))
 
-    def episodes_by_date(self, show_id, date):
-        result = self._get("/%s/%s/episodesbydate" % (self.url, show_id), params={"date": date})
-        return EpisodeModel.parse_list(result)
+    def icons(self, collection_id, limit=None, offset=None, page=None):
+        return self._icons(collection_id, limit=limit, offset=offset, page=page)
 
-    def seasons(self, show_id):
-        result = self._get("/%s/%s/seasons" % (self.url, show_id))
-        return SeasonModel.parse_list(result)
-
-    def cast(self, show_id):
-        result = self._get("/%s/%s/cast" % (self.url, show_id))
-        return CastModel.parse_list(result)
-
-    def crew(self, show_id):
-        result = self._get("/%s/%s/crew" % (self.url, show_id))
-        return CrewModel.parse_list(result)
-
-    def akas(self, show_id):
-        result = self._get("/%s/%s/akas" % (self.url, show_id))
-        return AkaModel.parse_list(result)
+    def icons_by_slug(self, slug, limit=None, offset=None, page=None):
+        return self._icons(slug, limit=limit, offset=offset, page=page)
