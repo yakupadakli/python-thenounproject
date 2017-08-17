@@ -9,11 +9,11 @@ class Collection(Client):
     def __init__(self, **kwargs):
         super(Collection, self).__init__(**kwargs)
         self.url = "collection"
-        self.list_url = "collections"
+        self.url_list = "collections"
 
     def list(self, limit=None, offset=None, page=None):
         params = {"limit": limit, "offset": offset, "page": page}
-        result = self._get("/%s" % self.list_url, params=params)
+        result = self._get("/%s" % self.url_list, params=params)
         return CollectionModel.parse_list(result.get("collections"))
 
     def _get_collection(self, collection_id_or_slug):
