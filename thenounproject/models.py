@@ -78,3 +78,24 @@ class Uploader(Model):
     def __init__(self, **kwargs):
         super(Uploader, self).__init__(**kwargs)
         self._repr_values = {"name": "Name", "username": "Username"}
+
+
+class Usage(Model):
+
+    def __init__(self, **kwargs):
+        super(Usage, self).__init__(**kwargs)
+        self._repr_values = {"daily": "Daily", "hourly": "Hourly", "monthly": "Monthly"}
+
+    @classmethod
+    def parse(cls, data, sub_item=False):
+        usage = super(Usage, cls).parse(data, sub_item=sub_item)
+        if hasattr(usage, "limits"):
+            usage.limits = Limit.parse(usage.limits, sub_item=True)
+        return usage
+
+
+class Limit(Model):
+
+    def __init__(self, **kwargs):
+        super(Limit, self).__init__(**kwargs)
+        self._repr_values = {"daily": "Daily", "hourly": "Hourly", "monthly": "Monthly"}

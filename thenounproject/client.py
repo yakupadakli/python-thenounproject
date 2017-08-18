@@ -30,11 +30,10 @@ class Client(object):
             raise ConnectionError(e)
 
         try:
-            if self._is_4xx(response.status_code):
+            if self._is_404(response.status_code):
                 result = None
             elif not self._is_2xx(response.status_code):
-                message = response.json().get("message")
-                raise TheNounProjectException(message)
+                raise TheNounProjectException()
             else:
                 result = response.json()
         except ValueError:
@@ -68,6 +67,10 @@ class Client(object):
     @staticmethod
     def _is_4xx(status_code):
         return 400 <= status_code <= 499
+
+    @staticmethod
+    def _is_404(status_code):
+        return 404 == status_code
 
     @staticmethod
     def _is_5xx(status_code):
