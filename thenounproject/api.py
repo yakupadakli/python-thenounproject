@@ -1,4 +1,5 @@
 from thenounproject.collection import Collection
+from thenounproject.enterprise import Enterprise
 from thenounproject.icon import Icon
 from thenounproject.usage import Usage
 from thenounproject.user import User
@@ -27,3 +28,7 @@ class Api(object):
     @property
     def user(self):
         return User(api=self)
+
+    @property
+    def enterprise(self):
+        return Enterprise(api=self)

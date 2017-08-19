@@ -1,3 +1,4 @@
+import json
 import requests
 
 from requests_oauthlib import OAuth1
@@ -21,6 +22,8 @@ class Client(object):
 
     def _request(self, url, method, params=None, data=None, headers=None, **kwargs):
         url = "%s%s" % (self.api.base_url, url)
+        if data:
+            data = json.dumps(data)
 
         try:
             response = requests.request(
