@@ -1,6 +1,6 @@
 # python-thenounproject
 
-A library that provides a Python interface to [the TheNounProject API](http://api.thenounproject.com/).
+A library that provides a Python interface to [TheNounProject API](http://api.thenounproject.com/).
 
 ## Installation
 
