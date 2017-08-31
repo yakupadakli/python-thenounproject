@@ -4,16 +4,16 @@ import unittest
 
 from tests import config
 from thenounproject.api import Api
-from thenounproject.models import Collection, Icon
+from thenounproject.models import Icon
 
 
-class CollectionTests(unittest.TestCase):
+class IconTests(unittest.TestCase):
 
     def setUp(self):
         self.api = Api(config.API_KEY, config.SECRET_KEY)
 
     def test_icon_list(self):
-        icon_list = self.api.icon.list()
+        icon_list = self.api.icon.list("fish")
         self.assertIsInstance(icon_list, list)
         self.assertIsInstance(icon_list[0], Icon)
 
