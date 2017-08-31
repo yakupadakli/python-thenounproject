@@ -29,4 +29,3 @@ class Icon(Client):
         params = {"limit": limit, "offset": offset, "page": page}
         result = self._get("/%s/recent_uploads" % self.url_list, params=params)
         return IconModel.parse_list(result.get("recent_uploads"))
-
