@@ -22,7 +22,7 @@ class CollectionTests(unittest.TestCase):
         self.assertIsInstance(collection, Collection)
 
     def test_collection_get_by_slug(self):
-        collection = self.api.collection.get("national-park-service")
+        collection = self.api.collection.get_by_slug("national-park-service")
         self.assertIsInstance(collection, Collection)
 
     def test_collection_icons(self):

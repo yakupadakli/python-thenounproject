@@ -31,8 +31,136 @@ Python 2.7, 3.3, 3.4 and 3.6, is supported for now.
 
 ### Collection
 
+##### Collection list
+
+Return’s a list of all collections
+
+Query Parameters:
+
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.list()
+
 ##### Collection get
+
+Returns a single collection
+
+    api.collection.get(4)
+
+##### Collection get by slug
+
+Returns a single collection
+
+    api.collection.get_by_slug("national-park-service")
+
+##### Collection icons
 
 Retrieve information for a given collection.
 
-    api.collection.get()
+Query Parameters:
+  
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.icons(55)
+
+##### Collection icons by slug
+
+Returns a list of icons associated with a collection
+
+Query Parameters:
+  
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.icons_by_slug("bicycle")
+
+### Icon
+
+##### Icon list
+
+Returns a list of icons
+
+Query Parameters:
+
+limit_to_public_domain (int) – limit results to public domain icons only
+
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.icon.list("fish")
+
+##### Icon get
+
+Returns a single icon
+
+    api.icon.get(15)
+
+##### Icon get by term
+
+Returns a single icon
+
+    api.icon.get_by_term(15)
+
+##### Icon recent uploads
+
+Returns list of most recently uploaded icons
+
+Query Parameters:
+ 	
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.icon.recent_uploads(15)
+
+### Usage
+
+##### Usage get
+
+Returns current oauth usage and limits
+
+    api.usage.get()
+
+### User
+
+##### User get
+
+Returns a list of collections associated with a user
+
+    api.usage.collections(6)
+
+##### User collection by slug
+
+Returns a single collection associated with a user
+
+    api.usage.collection_by_slug("bicycle")
+
+##### User collection by slug
+
+Returns a list of uploads associated with a user
+
+    api.usage.uploads("edward")
+
+### Enterprise
+
+##### Enterprise report usage
+
+Accepts icon ids for reporting icon usage. Default mode is test.
+
+    api.usage.report_usage(["42", "143", "1337"])
