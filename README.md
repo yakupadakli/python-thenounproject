@@ -128,3 +128,39 @@ offset (int) – number of results to displace or skip over
 page (int) – number of results of limit length to displace or skip over
 
     api.icon.recent_uploads(15)
+
+### Usage
+
+##### Usage get
+
+Returns current oauth usage and limits
+
+    api.usage.get()
+
+### User
+
+##### User get
+
+Returns a list of collections associated with a user
+
+    api.usage.collections(6)
+
+##### User collection by slug
+
+Returns a single collection associated with a user
+
+    api.usage.collection_by_slug("bicycle")
+
+##### User collection by slug
+
+Returns a list of uploads associated with a user
+
+    api.usage.uploads("edward")
+
+### Enterprise
+
+##### Enterprise report usage
+
+Accepts icon ids for reporting icon usage. Default mode is test.
+
+    api.usage.report_usage(["42", "143", "1337"])
