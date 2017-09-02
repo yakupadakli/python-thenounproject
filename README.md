@@ -31,8 +31,56 @@ Python 2.7, 3.3, 3.4 and 3.6, is supported for now.
 
 ### Collection
 
+##### Collection list
+
+Return’s a list of all collections
+
+Query Parameters:
+
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.list()
+
 ##### Collection get
+
+Returns a single collection
+
+    api.collection.get(4)
+
+##### Collection get by slug
+
+Returns a single collection
+
+    api.collection.get_by_slug("national-park-service")
+
+##### Collection icons
 
 Retrieve information for a given collection.
 
-    api.collection.get()
+Query Parameters:
+  
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.icons(55)
+
+##### Collection icons by slug
+
+Returns a list of icons associated with a collection
+
+Query Parameters:
+  
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.collection.icons_by_slug("bicycle")
