@@ -84,3 +84,47 @@ offset (int) – number of results to displace or skip over
 page (int) – number of results of limit length to displace or skip over
 
     api.collection.icons_by_slug("bicycle")
+
+### Icon
+
+##### Icon list
+
+Returns a list of icons
+
+Query Parameters:
+
+limit_to_public_domain (int) – limit results to public domain icons only
+
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.icon.list("fish")
+
+##### Icon get
+
+Returns a single icon
+
+    api.icon.get(15)
+
+##### Icon get by term
+
+Returns a single icon
+
+    api.icon.get_by_term(15)
+
+##### Icon recent uploads
+
+Returns list of most recently uploaded icons
+
+Query Parameters:
+ 	
+limit (int) – maximum number of results
+
+offset (int) – number of results to displace or skip over
+
+page (int) – number of results of limit length to displace or skip over
+
+    api.icon.recent_uploads(15)
